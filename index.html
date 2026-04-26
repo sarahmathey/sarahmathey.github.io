@@ -1,20 +1,428 @@
 <!DOCTYPE html>
-<html>
-  <head>
-    <meta charset="utf-8">
-    <title>Project: Test webpage</title>
-    
-  <!-- Google Fonts: Lato -->
-  <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Your Name</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Mono:wght@300;400&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+  <style>
+    /* ── INDEX-ONLY OVERRIDES ── */
 
-  <!-- Your CSS file -->
-  <link rel="stylesheet" href="styles.css">
-    
-  </head>
-  <body>
-    <h1>Test webpage</h1>
-    <p>Test text</p>
-    <h1>Test header 2</h1>
-    <p>Test text</p>
-  </body>
+    /* Full-bleed layout — no max-width container on this page */
+    main {
+      max-width: none;
+      padding: 0;
+    }
+
+    /* ── HERO ── */
+    #hero {
+      max-width: var(--max-w);
+      margin: 0 auto;
+      padding: 0 clamp(1.25rem, 5vw, 3.5rem);
+      min-height: calc(100vh - var(--nav-h));
+      display: grid;
+      grid-template-rows: 1fr auto;
+      padding-top: 3rem;
+      padding-bottom: 4rem;
+    }
+
+    .hero-body {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    .hero-eyebrow {
+      font-family: var(--mono);
+      font-size: 0.68rem;
+      font-weight: 300;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--gray-400);
+      margin-bottom: 1.5rem;
+      opacity: 0;
+      animation: fadeUp 0.75s 0.05s forwards;
+    }
+
+    .hero-name {
+      font-size: clamp(4rem, 10vw, 8rem);
+      font-weight: 300;
+      line-height: 0.95;
+      letter-spacing: -0.03em;
+      margin-bottom: 2rem;
+      opacity: 0;
+      animation: fadeUp 0.75s 0.18s forwards;
+    }
+
+    .hero-name em { font-style: italic; }
+
+    .hero-tagline {
+      font-size: clamp(1.05rem, 2.2vw, 1.3rem);
+      font-weight: 300;
+      color: var(--gray-600);
+      max-width: 480px;
+      line-height: 1.65;
+      margin-bottom: 3rem;
+      opacity: 0;
+      animation: fadeUp 0.75s 0.3s forwards;
+    }
+
+    .hero-cta {
+      display: flex;
+      gap: 1.5rem;
+      align-items: center;
+      flex-wrap: wrap;
+      opacity: 0;
+      animation: fadeUp 0.75s 0.44s forwards;
+    }
+
+    /* ── SCROLL HINT ── */
+    .scroll-hint {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      opacity: 0;
+      animation: fadeUp 0.75s 0.65s forwards;
+      padding-bottom: 0.5rem;
+    }
+
+    .scroll-hint span {
+      font-family: var(--mono);
+      font-size: 0.63rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--gray-400);
+    }
+
+    .scroll-line {
+      width: 32px;
+      height: 1px;
+      background: var(--gray-400);
+    }
+
+    /* ── ABOUT SECTION ── */
+    #about {
+      border-top: 1px solid var(--gray-200);
+      background: var(--gray-50);
+    }
+
+    .about-inner {
+      max-width: var(--max-w);
+      margin: 0 auto;
+      padding: 5rem clamp(1.25rem, 5vw, 3.5rem);
+      display: grid;
+      grid-template-columns: 1fr 1.1fr;
+      gap: 5rem;
+      align-items: start;
+    }
+
+    .about-left {}
+
+    .about-label {
+      font-family: var(--mono);
+      font-size: 0.65rem;
+      font-weight: 300;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--gray-400);
+      margin-bottom: 1.25rem;
+    }
+
+    .about-heading {
+      font-size: clamp(2rem, 4vw, 3rem);
+      font-weight: 300;
+      line-height: 1.1;
+      letter-spacing: -0.02em;
+      margin-bottom: 2rem;
+    }
+
+    .about-heading em { font-style: italic; }
+
+    .about-text p {
+      font-size: 1rem;
+      font-weight: 300;
+      color: var(--gray-600);
+      line-height: 1.75;
+      margin-bottom: 1.25rem;
+    }
+
+    .about-text p:last-child { margin-bottom: 0; }
+
+    .about-right {
+      padding-top: 0.25rem;
+    }
+
+    /* ── STATS ── */
+    .stats-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1px;
+      background: var(--gray-200);
+      border: 1px solid var(--gray-200);
+      margin-bottom: 3rem;
+    }
+
+    .stat-cell {
+      background: var(--white);
+      padding: 1.5rem 1.25rem;
+    }
+
+    .stat-number {
+      font-size: 2.75rem;
+      font-weight: 300;
+      line-height: 1;
+      letter-spacing: -0.03em;
+      margin-bottom: 0.35rem;
+    }
+
+    .stat-label {
+      font-family: var(--mono);
+      font-size: 0.63rem;
+      font-weight: 300;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--gray-400);
+    }
+
+    /* ── CONTACT LINKS ── */
+    .contact-label {
+      font-family: var(--mono);
+      font-size: 0.65rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--gray-400);
+      margin-bottom: 1.25rem;
+    }
+
+    .contact-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem 2rem;
+    }
+
+    .contact-link {
+      font-family: var(--mono);
+      font-size: 0.7rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      text-decoration: none;
+      color: var(--black);
+      border-bottom: 1px solid var(--gray-400);
+      padding-bottom: 2px;
+      transition: border-color 0.2s;
+    }
+
+    .contact-link:hover { border-color: var(--black); }
+
+    /* ── WORK STRIP ── */
+    #work-strip {
+      border-top: 1px solid var(--gray-200);
+    }
+
+    .work-strip-inner {
+      max-width: var(--max-w);
+      margin: 0 auto;
+      padding: 4rem clamp(1.25rem, 5vw, 3.5rem) 6rem;
+    }
+
+    .work-strip-header {
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      margin-bottom: 2rem;
+    }
+
+    .work-strip-title {
+      font-size: clamp(1.5rem, 3vw, 2rem);
+      font-weight: 300;
+      letter-spacing: -0.01em;
+    }
+
+    .work-strip-title em { font-style: italic; }
+
+    .work-strip-hint {
+      font-family: var(--mono);
+      font-size: 0.63rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--gray-400);
+    }
+
+    /* Horizontal scroll row of project chips */
+    .work-chips {
+      display: flex;
+      gap: 1px;
+      background: var(--gray-200);
+      border: 1px solid var(--gray-200);
+      overflow-x: auto;
+      scrollbar-width: none;
+    }
+
+    .work-chips::-webkit-scrollbar { display: none; }
+
+    .work-chip {
+      background: var(--white);
+      flex: 1 0 160px;
+      padding: 1.5rem 1.25rem;
+      text-decoration: none;
+      color: inherit;
+      transition: background 0.2s var(--ease);
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+
+    .work-chip:hover { background: var(--gray-50); }
+
+    .chip-num {
+      font-family: var(--mono);
+      font-size: 0.6rem;
+      font-weight: 300;
+      color: var(--gray-400);
+      letter-spacing: 0.08em;
+    }
+
+    .chip-title {
+      font-size: 1rem;
+      font-weight: 300;
+      letter-spacing: -0.01em;
+      line-height: 1.25;
+    }
+
+    .chip-title em { font-style: italic; }
+
+    .chip-arrow {
+      margin-top: auto;
+      font-size: 0.85rem;
+      color: var(--gray-400);
+      transition: transform 0.2s var(--ease), color 0.2s;
+    }
+
+    .work-chip:hover .chip-arrow {
+      transform: translate(2px, -2px);
+      color: var(--black);
+    }
+
+    @media (max-width: 640px) {
+      .about-inner {
+        grid-template-columns: 1fr;
+        gap: 3rem;
+      }
+      .stats-grid { grid-template-columns: 1fr 1fr; }
+      .work-strip-header { flex-direction: column; gap: 0.5rem; }
+      .work-chip { flex: 0 0 140px; }
+    }
+  </style>
+</head>
+<body>
+
+<main>
+
+  <!-- ── HERO ── -->
+  <section id="hero">
+    <div class="hero-body">
+      <p class="hero-eyebrow">Portfolio — 2025</p>
+      <h1 class="hero-name">Your <em>Name</em></h1>
+      <p class="hero-tagline">A sentence or two about what you do — research, writing, data, a mix of all three. Keep it warm and specific.</p>
+      <div class="hero-cta">
+        <a href="timeline.html" class="btn-primary">View the work</a>
+        <a href="mailto:hello@yourname.com" class="btn-ghost">Get in touch</a>
+      </div>
+    </div>
+    <div class="scroll-hint">
+      <div class="scroll-line"></div>
+      <span>Scroll to learn more</span>
+    </div>
+  </section>
+
+  <!-- ── ABOUT ── -->
+  <section id="about">
+    <div class="about-inner">
+      <div class="about-left reveal">
+        <p class="about-label">About</p>
+        <h2 class="about-heading">The person <em>behind</em> the work</h2>
+        <div class="about-text">
+          <p>Replace this with your own background — where you've been, what you care about, and the kinds of questions that keep you up at night.</p>
+          <p>A second paragraph can mention your current role, location, or what you're working toward. Let it sound like you, not a LinkedIn summary.</p>
+        </div>
+      </div>
+      <div class="about-right reveal">
+        <div class="stats-grid">
+          <div class="stat-cell">
+            <div class="stat-number">5+</div>
+            <div class="stat-label">Years experience</div>
+          </div>
+          <div class="stat-cell">
+            <div class="stat-number">30</div>
+            <div class="stat-label">Projects completed</div>
+          </div>
+          <div class="stat-cell">
+            <div class="stat-number">2</div>
+            <div class="stat-label">Writing samples</div>
+          </div>
+          <div class="stat-cell">
+            <div class="stat-number">∞</div>
+            <div class="stat-label">Books to read</div>
+          </div>
+        </div>
+        <p class="contact-label">Find me</p>
+        <div class="contact-links">
+          <a href="mailto:hello@yourname.com" class="contact-link">Email</a>
+          <a href="https://linkedin.com/in/yourname" class="contact-link" target="_blank" rel="noopener">LinkedIn</a>
+          <a href="https://github.com/yourname" class="contact-link" target="_blank" rel="noopener">GitHub</a>
+          <a href="/resume.pdf" class="contact-link" target="_blank" rel="noopener">Résumé</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── WORK STRIP ── -->
+  <section id="work-strip">
+    <div class="work-strip-inner">
+      <div class="work-strip-header reveal">
+        <h2 class="work-strip-title">Explore the <em>work</em></h2>
+        <span class="work-strip-hint">Use the nav above to dive in</span>
+      </div>
+      <div class="work-chips reveal">
+        <a href="timeline.html" class="work-chip">
+          <span class="chip-num">01</span>
+          <span class="chip-title">Career <em>Timeline</em></span>
+          <span class="chip-arrow">↗</span>
+        </a>
+        <a href="writing.html" class="work-chip">
+          <span class="chip-num">02</span>
+          <span class="chip-title">Writing <em>Samples</em></span>
+          <span class="chip-arrow">↗</span>
+        </a>
+        <a href="network.html" class="work-chip">
+          <span class="chip-num">03</span>
+          <span class="chip-title">Network <em>Analysis</em></span>
+          <span class="chip-arrow">↗</span>
+        </a>
+        <a href="reading.html" class="work-chip">
+          <span class="chip-num">04</span>
+          <span class="chip-title">Reading <em>List</em></span>
+          <span class="chip-arrow">↗</span>
+        </a>
+        <a href="resources.html" class="work-chip">
+          <span class="chip-num">05</span>
+          <span class="chip-title"><em>Resources</em></span>
+          <span class="chip-arrow">↗</span>
+        </a>
+        <a href="dataviz.html" class="work-chip">
+          <span class="chip-num">06</span>
+          <span class="chip-title">Data <em>Viz</em></span>
+          <span class="chip-arrow">↗</span>
+        </a>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<script src="nav.js"></script>
+</body>
 </html>

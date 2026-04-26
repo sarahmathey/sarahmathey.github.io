@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Data Visualization — Your Name</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Mono:wght@300;400&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+  <style>
+    /* filter bar */
+    .filter-bar {
+      display: flex;
+      gap: 0.5rem;
+      flex-wrap: wrap;
+      margin-bottom: 2.5rem;
+    }
+    .filter-btn {
+      font-family: var(--mono);
+      font-size: 0.65rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      padding: 0.4rem 0.9rem;
+      border: 1px solid var(--gray-200);
+      background: var(--white);
+      color: var(--gray-600);
+      cursor: pointer;
+      transition: background 0.15s, color 0.15s, border-color 0.15s;
+    }
+    .filter-btn:hover,
+    .filter-btn.active {
+      background: var(--black);
+      color: var(--white);
+      border-color: var(--black);
+    }
+  </style>
+</head>
+<body>
+<main>
+  <header class="page-header">
+    <p class="page-eyebrow">06 — Data Visualization</p>
+    <h1 class="page-title">Data <em>Visualization</em></h1>
+    <p class="page-desc">A collection of charts, maps, and interactive graphics — each one an attempt to let a dataset speak clearly.</p>
+  </header>
+
+  <!-- FILTER BAR -->
+  <div class="filter-bar reveal">
+    <button class="filter-btn active" data-filter="all">All</button>
+    <button class="filter-btn" data-filter="chart">Charts</button>
+    <button class="filter-btn" data-filter="map">Maps</button>
+    <button class="filter-btn" data-filter="network">Networks</button>
+    <button class="filter-btn" data-filter="interactive">Interactive</button>
+  </div>
+
+  <!-- VIZ GRID -->
+  <!-- Each card: add data-type="chart|map|network|interactive" for filtering -->
+  <div class="viz-grid reveal" id="viz-grid">
+
+    <a href="#" class="viz-card" data-type="chart">
+      <div class="viz-thumb">
+        <!-- Replace with: <img src="images/viz-01.png" alt="Description of chart" /> -->
+        <span class="viz-thumb-placeholder">Preview image</span>
+      </div>
+      <p class="viz-card-label">Bar chart · 2024</p>
+      <h3 class="viz-card-title">Visualization Title One</h3>
+      <p class="viz-card-desc">One or two sentences on what this shows and what insight it surfaces.</p>
+    </a>
+
+    <a href="#" class="viz-card" data-type="map">
+      <div class="viz-thumb">
+        <span class="viz-thumb-placeholder">Preview image</span>
+      </div>
+      <p class="viz-card-label">Choropleth map · 2024</p>
+      <h3 class="viz-card-title">Visualization Title Two</h3>
+      <p class="viz-card-desc">Geographic distribution of something worth mapping. What does the pattern reveal?</p>
+    </a>
+
+    <a href="#" class="viz-card" data-type="network">
+      <div class="viz-thumb">
+        <span class="viz-thumb-placeholder">Preview image</span>
+      </div>
+      <p class="viz-card-label">Network graph · 2023</p>
+      <h3 class="viz-card-title">Visualization Title Three</h3>
+      <p class="viz-card-desc">Nodes, edges, and what structure emerges when you lay the data flat.</p>
+    </a>
+
+    <a href="#" class="viz-card" data-type="interactive">
+      <div class="viz-thumb">
+        <span class="viz-thumb-placeholder">Preview image</span>
+      </div>
+      <p class="viz-card-label">Interactive · 2023</p>
+      <h3 class="viz-card-title">Visualization Title Four</h3>
+      <p class="viz-card-desc">An interactive piece — what can the reader explore or manipulate?</p>
+    </a>
+
+    <a href="#" class="viz-card" data-type="chart">
+      <div class="viz-thumb">
+        <span class="viz-thumb-placeholder">Preview image</span>
+      </div>
+      <p class="viz-card-label">Line chart · 2023</p>
+      <h3 class="viz-card-title">Visualization Title Five</h3>
+      <p class="viz-card-desc">Time series showing change over a meaningful period. The story is in the inflection point.</p>
+    </a>
+
+    <a href="#" class="viz-card" data-type="interactive">
+      <div class="viz-thumb">
+        <span class="viz-thumb-placeholder">Preview image</span>
+      </div>
+      <p class="viz-card-label">Dashboard · 2022</p>
+      <h3 class="viz-card-title">Visualization Title Six</h3>
+      <p class="viz-card-desc">A multi-panel view of a dataset — built for exploration rather than a single argument.</p>
+    </a>
+
+  </div>
+
+  <div class="cta-block reveal">
+    <a href="index.html" class="btn-ghost">← Back to all work</a>
+    <a href="https://github.com/yourname" class="btn-primary" target="_blank" rel="noopener">All code on GitHub ↗</a>
+  </div>
+</main>
+
+<script src="nav.js"></script>
+<script>
+  // Simple filter
+  document.querySelectorAll('.filter-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      const filter = btn.dataset.filter;
+      document.querySelectorAll('.viz-card').forEach(card => {
+        card.style.display = (filter === 'all' || card.dataset.type === filter) ? 'block' : 'none';
+      });
+    });
+  });
+</script>
+</body>
+</html>
