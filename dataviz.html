@@ -34,6 +34,22 @@
       color: var(--white);
       border-color: var(--black);
     }
+    /* featured card */
+    .viz-card--featured {
+      border-top: 2px solid var(--black);
+    }
+    .viz-card-badge {
+      display: inline-block;
+      font-family: var(--mono);
+      font-size: 0.58rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      background: var(--black);
+      color: var(--white);
+      padding: 0.15rem 0.45rem;
+      margin-left: 0.5rem;
+      vertical-align: middle;
+    }
   </style>
 </head>
 <body>
@@ -57,59 +73,31 @@
   <!-- Each card: add data-type="chart|map|network|interactive" for filtering -->
   <div class="viz-grid reveal" id="viz-grid">
 
-    <a href="#" class="viz-card" data-type="chart">
+    <a href="network.html" class="viz-card viz-card--featured" data-type="network">
       <div class="viz-thumb">
-        <!-- Replace with: <img src="images/viz-01.png" alt="Description of chart" /> -->
         <span class="viz-thumb-placeholder">Preview image</span>
       </div>
-      <p class="viz-card-label">Bar chart · 2024</p>
-      <h3 class="viz-card-title">Visualization Title One</h3>
-      <p class="viz-card-desc">One or two sentences on what this shows and what insight it surfaces.</p>
+      <p class="viz-card-label">Network graph · 2024 <span class="viz-card-badge">Featured</span></p>
+      <h3 class="viz-card-title">Scam PAC <em>Explorer</em></h3>
+      <p class="viz-card-desc">An interactive network of PAC–vendor spending relationships built to surface fraudulent political action committees in FEC disclosure data. Built with Python, Dash, DuckDB, and NetworkX.</p>
     </a>
 
-    <a href="#" class="viz-card" data-type="map">
+    <a href="https://sarah-mathey.shinyapps.io/shiny_app/" class="viz-card" data-type="interactive" target="_blank" rel="noopener">
       <div class="viz-thumb">
         <span class="viz-thumb-placeholder">Preview image</span>
       </div>
-      <p class="viz-card-label">Choropleth map · 2024</p>
-      <h3 class="viz-card-title">Visualization Title Two</h3>
-      <p class="viz-card-desc">Geographic distribution of something worth mapping. What does the pattern reveal?</p>
+      <p class="viz-card-label">Shiny · Interactive · 2025</p>
+      <h3 class="viz-card-title">Renewable Energy <em>Explorer</em></h3>
+      <p class="viz-card-desc">An interactive R Shiny dashboard for exploring IRENA global electricity generation data — filterable by country, region, and technology type, with choropleth maps and treemap breakdowns.</p>
     </a>
 
-    <a href="#" class="viz-card" data-type="network">
+    <a href="peer-review.html" class="viz-card" data-type="chart" target="_blank" rel="noopener">
       <div class="viz-thumb">
         <span class="viz-thumb-placeholder">Preview image</span>
       </div>
-      <p class="viz-card-label">Network graph · 2023</p>
-      <h3 class="viz-card-title">Visualization Title Three</h3>
-      <p class="viz-card-desc">Nodes, edges, and what structure emerges when you lay the data flat.</p>
-    </a>
-
-    <a href="#" class="viz-card" data-type="interactive">
-      <div class="viz-thumb">
-        <span class="viz-thumb-placeholder">Preview image</span>
-      </div>
-      <p class="viz-card-label">Interactive · 2023</p>
-      <h3 class="viz-card-title">Visualization Title Four</h3>
-      <p class="viz-card-desc">An interactive piece — what can the reader explore or manipulate?</p>
-    </a>
-
-    <a href="#" class="viz-card" data-type="chart">
-      <div class="viz-thumb">
-        <span class="viz-thumb-placeholder">Preview image</span>
-      </div>
-      <p class="viz-card-label">Line chart · 2023</p>
-      <h3 class="viz-card-title">Visualization Title Five</h3>
-      <p class="viz-card-desc">Time series showing change over a meaningful period. The story is in the inflection point.</p>
-    </a>
-
-    <a href="#" class="viz-card" data-type="interactive">
-      <div class="viz-thumb">
-        <span class="viz-thumb-placeholder">Preview image</span>
-      </div>
-      <p class="viz-card-label">Dashboard · 2022</p>
-      <h3 class="viz-card-title">Visualization Title Six</h3>
-      <p class="viz-card-desc">A multi-panel view of a dataset — built for exploration rather than a single argument.</p>
+      <p class="viz-card-label">Charts & Maps · 2025</p>
+      <h3 class="viz-card-title">Making America <em>Weak</em></h3>
+      <p class="viz-card-desc">A data-driven analysis of U.S. underinvestment in renewable energy relative to China — using IRENA data, IEA investment figures, and global solar plant tracking to map the widening capability gap.</p>
     </a>
 
   </div>

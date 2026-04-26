@@ -306,6 +306,22 @@
       color: var(--black);
     }
 
+    .work-chip--featured {
+      border-top: 2px solid var(--black);
+    }
+
+    .chip-tag {
+      font-family: var(--mono);
+      font-size: 0.55rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      background: var(--black);
+      color: var(--white);
+      padding: 0.15rem 0.45rem;
+      display: inline-block;
+      margin-top: 0.1rem;
+    }
+
     @media (max-width: 640px) {
       .about-inner {
         grid-template-columns: 1fr;
@@ -397,9 +413,10 @@
           <span class="chip-title">Writing <em>Samples</em></span>
           <span class="chip-arrow">↗</span>
         </a>
-        <a href="network.html" class="work-chip">
+        <a href="network.html" class="work-chip work-chip--featured">
           <span class="chip-num">03</span>
           <span class="chip-title">Network <em>Analysis</em></span>
+          <span class="chip-tag">Featured</span>
           <span class="chip-arrow">↗</span>
         </a>
         <a href="reading.html" class="work-chip">
