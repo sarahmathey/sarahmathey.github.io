@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Network Analysis — Your Name</title>
+  <title>Scam PAC Explorer — Sarah Mathey</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Mono:wght@300;400&display=swap" rel="stylesheet" />
@@ -13,14 +13,14 @@
 <main>
   <header class="page-header">
     <p class="page-eyebrow">03 — Research</p>
-    <h1 class="page-title">Network <em>Analysis</em></h1>
-    <p class="page-desc">An ongoing project examining structure, relationships, and dynamics within [your network/system]. Work in progress.</p>
+    <h1 class="page-title">Scam PAC <em>Explorer</em></h1>
+    <p class="page-desc">An interactive network visualization of PAC–vendor spending relationships from the 2023–2024 federal election cycle, built to help journalists, activists, and regulators identify fraudulent Political Action Committees.</p>
   </header>
 
   <div class="project-meta-block reveal">
     <div class="meta-pair">
       <span class="meta-label">Status</span>
-      <span class="meta-value">In progress</span>
+      <span class="meta-value">Live</span>
     </div>
     <div class="meta-pair">
       <span class="meta-label">Started</span>
@@ -28,36 +28,63 @@
     </div>
     <div class="meta-pair">
       <span class="meta-label">Tools</span>
-      <span class="meta-value">Python · NetworkX · Gephi</span>
+      <span class="meta-value">Python · Dash · DuckDB · NetworkX · RapidFuzz · Amazon S3</span>
     </div>
     <div class="meta-pair">
       <span class="meta-label">Data</span>
-      <span class="meta-value">Describe your dataset</span>
+      <span class="meta-value">FEC open API &amp; bulk data · 2023–2024 election cycle</span>
     </div>
   </div>
 
   <div class="prose reveal">
     <h2>The <em>question</em></h2>
-    <p>Describe the central research question driving this project. What phenomenon are you mapping? What structure are you trying to understand? Keep it accessible — assume a curious reader who isn't a specialist.</p>
+    <p>
+      Scam PACs — Political Action Committees that solicit donations under the pretense of supporting candidates but funnel nearly all receipts to fundraising vendors and insiders — have drawn increasing scrutiny from regulators and journalists. The FEC first flagged the pattern in 2016. A decade later, the practice remains largely unchecked.
+    </p>
+    <p>
+      This project asks: <strong>can we surface likely scam PACs systematically from the disclosure data PACs are already required to file?</strong> Three of the four key indicators — a high share of unitemized contributions, disproportionate spending on fundraising vendors, and minimal candidate support — are directly measurable from FEC filings. The fourth (whether PAC officers personally benefit from vendor payments) requires investigative reporting, but the first three can narrow the field considerably.
+    </p>
 
     <h2>The <em>approach</em></h2>
-    <p>Explain your methodology at a high level. What data are you working with? How are nodes and edges defined? What community detection or centrality methods are you applying and why?</p>
-
-    <p>This is also a good place to name any constraints or limitations you're actively working through.</p>
+    <p>
+      I collected all F3X filings from PACs active in the 2023–2024 cycle via the FEC's open API and bulk data store, then joined their Schedule B (operating expenditures) and Schedule E (independent expenditures) line items to trace every payment to a vendor, candidate committee, or other PAC.
+    </p>
+    <p>
+      The central challenge was vendor name standardization: the same vendor appears under dozens of spelling variations across thousands of filings. I evaluated HDBSCAN and Agglomerative Clustering but found accuracy insufficient for a tool whose output is inherently accusatory. I settled on <strong>RapidFuzz fuzzy string matching</strong>, which gave more predictable and auditable results.
+    </p>
+    <p>
+      The cleaned data is stored as Parquet on Amazon S3 and queried live via <strong>DuckDB</strong> — meaning every filter interaction in the app runs a SQL query against the full dataset rather than loading a 94 MB CSV into memory. The network is built with <strong>NetworkX</strong> and rendered in the browser with <strong>Dash Cytoscape</strong>.
+    </p>
 
     <h2>Early <em>findings</em></h2>
-    <p>Share what you've found so far, even if provisional. Concrete observations are more compelling than hedged generalities. If you have a visualization to embed, you can add an <code>&lt;img&gt;</code> or <code>&lt;iframe&gt;</code> tag here.</p>
+    <p>
+      Filtering to PACs where 80%+ of receipts come from small-dollar unitemized donations and fewer than 10 distinct vendors received payments surfaces a tight cluster of committees spending almost entirely on direct mail and list acquisition services — with the same vendor names appearing across dozens of ostensibly unrelated PACs. The network visualization makes these shared-vendor relationships immediately legible in a way tabular data does not.
+    </p>
+  </div>
 
-    <!-- Example: embed a Gephi export or an Observable notebook -->
-    <!-- <iframe src="https://observablehq.com/embed/..." width="100%" height="500" frameborder="0"></iframe> -->
+  <div class="reveal" style="margin: 3rem 0;">
+    <iframe
+      src="https://smathey-scam-pac-explorer.hf.space"
+      width="100%"
+      height="700"
+      frameborder="0"
+      style="border-radius: 4px; border: 1px solid #e2e2de;"
+    ></iframe>
+  </div>
 
+  <div class="prose reveal">
     <h2>What's <em>next</em></h2>
-    <p>Briefly describe where the project is headed. This signals that the work is active and gives readers a reason to come back.</p>
+    <p>
+      The current vendor standardization is rule-based. The next iteration will evaluate whether a fine-tuned ML clustering approach can improve recall without sacrificing the precision the accusatory nature of the output demands. I'm also exploring expenditure classification via NLP to automatically distinguish fundraising costs from genuine operational spending — which would make the scam PAC signal more precise without requiring manual review.
+    </p>
+    <p>
+      On the infrastructure side, I'm planning to migrate the data pipeline from local Jupyter notebooks to a cloud-native Spark or Databricks workflow to support full-cycle updates as new FEC filings are released.
+    </p>
   </div>
 
   <div class="cta-block reveal">
     <a href="index.html" class="btn-ghost">← Back to all work</a>
-    <a href="https://github.com/yourname/network-analysis" class="btn-primary" target="_blank" rel="noopener">View on GitHub ↗</a>
+    <a href="https://github.com/sarahmathey/scam_pacs" class="btn-primary" target="_blank" rel="noopener">View on GitHub ↗</a>
   </div>
 </main>
 <script src="nav.js"></script>
