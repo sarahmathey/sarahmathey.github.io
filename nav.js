@@ -21,7 +21,7 @@
 
   document.body.insertAdjacentHTML('afterbegin', `
     <nav>
-      <a href="index.html" class="nav-logo">Your Name</a>
+      <a href="index.html" class="nav-logo">Sarah Mathey</a>
       <button class="nav-toggle" aria-label="Toggle menu" aria-controls="${menuId}"
         onclick="
           var m = document.getElementById('${menuId}');
@@ -41,7 +41,7 @@
 
   document.body.insertAdjacentHTML('beforeend', `
     <footer>
-      <span class="footer-copy">© 2025 Your Name</span>
+      <span class="footer-copy">© 2026 Sarah Mathey/span>
       <span class="footer-copy">Hosted on GitHub Pages</span>
     </footer>
   `);
