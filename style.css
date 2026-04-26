@@ -223,6 +223,21 @@ main {
   color: var(--gray-400);
 }
 
+.list-item-writing-link {
+  display: inline-block;
+  margin-top: 0.5rem;
+  font-family: var(--mono);
+  font-size: 0.63rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--black);
+  text-decoration: none;
+  border-bottom: 1px solid currentColor;
+  transition: opacity 0.2s var(--ease);
+}
+
+.list-item-writing-link:hover { opacity: 0.5; }
+
 .list-item-arrow {
   font-size: 1rem;
   color: var(--gray-400);
