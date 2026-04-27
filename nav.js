@@ -4,12 +4,12 @@
 
   const pages = [
     { href: 'index.html',     label: 'Home' },
+    { href: 'network.html',   label: 'Scam PAC Explorer' },
+    { href: 'dataviz.html',   label: 'Data Viz' },
     { href: 'timeline.html',  label: 'Timeline' },
     { href: 'writing.html',   label: 'Writing' },
-    { href: 'network.html',   label: 'Network' },
     { href: 'reading.html',   label: 'Reading' },
     { href: 'resources.html', label: 'Resources' },
-    { href: 'dataviz.html',   label: 'Viz' },
   ];
 
   const links = pages
